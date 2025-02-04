@@ -47,8 +47,8 @@ void BuildProject(const std::string& uprojectPath) {
     std::string projectName = uprojectPath.substr(uprojectPath.find_last_of("/\\") + 1);
     projectName = projectName.substr(0, projectName.find_last_of("."));
     std::string target= projectName + "Editor";
-    std::string command = "./Engine/Build/BatchFiles/Build.bat";
-    command += " " + target + " Win64 Development -Project=\"" + uprojectPath + "\"" + "- waitmutex";
+    std::string command = "call ./Engine/Build/BatchFiles/Build.bat";
+    command += " " + target + " Win64 Development -Project=\"" + uprojectPath + "\"" + " -waitmutex";
     
     int result = system(command.c_str());
     if (result != 0) {
@@ -58,11 +58,11 @@ void BuildProject(const std::string& uprojectPath) {
 
 // Fonction pour packager un projet Unreal
 void PackageProject(const std::string& uprojectPath, const std::string& outputPath) {
-    std::string command = "./Engine/Build/BatchFiles/RunUAT.bat";
+    std::string command = "call ./Engine/Build/BatchFiles/RunUAT.bat";
     command += " -ScriptsForProject=" + uprojectPath + " BuildCookRun";
     command += " -project=" + uprojectPath;
     command += " -noP4 -clientconfig=Development -serverconfig=Development";
-    command += " -nocompileeditor -unrealexe=C:/UnrealEngine/Engine/Binaries/Win64/UnrealEditor-Cmd.exe -utf8output -platform=Win64 -build -cook -map=ThirdPersonMap+StarterMap -CookCultures=fr -unversionedcookedcontent -stage -package -cmdline=' -Messaging' -addcmdline='-SessionId=12D2F7F146879741318F75817C660C32 -SessionOwner='alexa' -SessionName='ProfileTP' ";
+    command += " -nocompile -nocompileeditor -installed -unrealexe=C:/UnrealEngine/Engine/Binaries/Win64/UnrealEditor-Cmd.exe -utf8output -platform=Win64 -build -cook -map=ThirdPersonMap+StarterMap -CookCultures=fr -unversionedcookedcontent -stage -package -cmdline=' -Messaging' -addcmdline='-SessionId=12D2F7F146879741318F75817C660C32 -SessionOwner='alexa' -SessionName='ProfileTP' ";
     command += " -stagingirectory=" + outputPath;
     
     int result = system(command.c_str());
