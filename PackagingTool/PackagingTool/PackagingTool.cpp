@@ -58,12 +58,12 @@ void BuildProject(const std::string& uprojectPath) {
 
 // Fonction pour packager un projet Unreal
 void PackageProject(const std::string& uprojectPath, const std::string& outputPath) {
-    std::string command = ".\\Engine\\Build\\BatchFiles\\RunUAT.bat";
+    std::string command = "./Engine/Build/BatchFiles/RunUAT.bat";
     command += " -ScriptsForProject=" + uprojectPath + " BuildCookRun";
     command += " -project=" + uprojectPath;
     command += " -noP4 -clientconfig=Development -serverconfig=Development";
     command += " -nocompileeditor -unrealexe=C:/UnrealEngine/Engine/Binaries/Win64/UnrealEditor-Cmd.exe -utf8output -platform=Win64 -build -cook -map=ThirdPersonMap+StarterMap -CookCultures=fr -unversionedcookedcontent -stage -package -cmdline=' -Messaging' -addcmdline='-SessionId=12D2F7F146879741318F75817C660C32 -SessionOwner='alexa' -SessionName='ProfileTP' ";
-    command += " -archivedirectory=" + outputPath;
+    command += " -stagingirectory=" + outputPath;
     
     int result = system(command.c_str());
     if (result != 0) {
